@@ -11,11 +11,11 @@ public class Algebra {
    		System.out.println(minus(2,7));  // 2 - 7
  		System.out.println(times(3,4));  // 3 * 4
    		System.out.println(plus(2,times(4,2)));  // 2 + 4 * 2
-   		System.out.println(pow(5,3));      // 5^3
+   		System.out.println(pow(-5,3));      // 5^3
    		System.out.println(pow(3,5));      // 3^5
-   		System.out.println(div(12,3));   // 12 / 3    
-   		System.out.println(div(5,5));    // 5 / 5  
-   		System.out.println(div(25,7));   // 25 / 7
+   		System.out.println(div(-12,3));   // 12 / 3    
+   		System.out.println(div(5,-5));    // 5 / 5  
+   		System.out.println(div(-25,-7));   // 25 / 7
    		System.out.println(mod(25,7));   // 25 % 7
    		System.out.println(mod(120,6));  // 120 % 6    
    		System.out.println(sqrt(36));
@@ -25,16 +25,32 @@ public class Algebra {
 
 	// Returns x1 + x2
 	public static int plus(int x1, int x2) {
-		for (int i = 0; i < x2; i++) {
-			x1 ++;
+		
+		if (x2 >= 0){
+			for (int i = 0; i < x2; i++){
+				x1 ++;
+			}
+		}
+		else {
+			for (int i = 0; i > x2; i--) {
+				x1 --;
+			}
 		}
 		return x1;
 	}
 
 	// Returns x1 - x2
 	public static int minus(int x1, int x2) {
-		for (int i = 0; i < x2; i++){
-			x1 --;
+
+		if (x2 >= 0){
+			for (int i = 0; i < x2; i++){
+				x1 --;
+			}
+		}
+		else {
+			for (int i = 0; i > x2; i--){
+				x1 ++;
+			}
 		}
 		return x1;
 	}
@@ -42,11 +58,29 @@ public class Algebra {
 	// Returns x1 * x2
 	public static int times(int x1, int x2) {
 		int add = 0;
-		for (int i = 0; i < x2; i++) {
-			add = plus(add,x1);
-			}
-		return add;
+		if ((x1 >= 0 && x2 >= 0)){
+			for (int i = 0; i < x2; i++) {
+				add = plus(add,x1);
+				}
 		}
+		if ((x1 <= 0 && x2 <= 0)){
+			for (int i = 0; i > x2; i--){
+				add = plus(add, x1);
+			}
+			add = minus(minus(add,add),add); 
+		} 
+		if (x1 <= 0 && x2 >= 0){
+			for (int i = 0; i < x2; i ++){
+				add = plus(add,x1);
+			}
+		}
+		if (x1 >= 0 && x2 <= 0){
+			for (int i = 0; i > x2; i --){
+				add = minus(add,x1);
+			}
+		}
+		return add;
+	}
 
 	// Returns x^n (for n >= 0)
 	public static int pow(int x, int n) {
@@ -63,14 +97,34 @@ public class Algebra {
 		int denominator = x2;
 		int factor = 0;
 
-		if (denominator != 0){
+		if (numerator < 0 && denominator < 0) {
+			while (numerator <= denominator) {
+				numerator -= denominator;
+				factor ++;
+			}
+		}
+		if (numerator > 0 && denominator > 0){
 			while (numerator >= denominator) {
 				numerator -= denominator;
 				factor ++;
 			}
 		}
-		else {
-			System.out.println("Error");
+		if (numerator < 0 && denominator > 0){
+			denominator -= times(2,denominator);
+			while (numerator <= denominator) {
+				numerator -= denominator;
+				factor ++;
+			}
+			factor -= times(2,factor);
+		}
+		if (numerator > 0 && denominator < 0){
+			denominator -= times(2,denominator);
+			System.out.println(denominator);
+			while (numerator >= denominator) {
+				numerator -= denominator;
+				factor ++;
+			}
+			factor -= times(2,factor);
 		}
 		return factor;
 	}
