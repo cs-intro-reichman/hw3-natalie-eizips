@@ -119,7 +119,6 @@ public class Algebra {
 		}
 		if (numerator > 0 && denominator < 0){
 			denominator -= times(2,denominator);
-			System.out.println(denominator);
 			while (numerator >= denominator) {
 				numerator -= denominator;
 				factor ++;
@@ -140,12 +139,13 @@ public class Algebra {
 	// Returns the integer part of sqrt(x) 
 	public static int sqrt(int x) {
 		int g = 0;
-		int count = 0;
 
 		while(times(g,g) < x) {
+			if (times(g+1, g+1) > x) {
+				return g;
+			}
 			g ++;
-			count ++;
 		}
-		return count;
+		return g;
 	}	  	  
 }
