@@ -8,7 +8,7 @@ public class Anagram {
 		System.out.println(isAnagram("Tom Marvolo Riddle","I am Lord Voldemort")); // true
 
 		// Tests the preProcess function.
-		System.out.println(preProcess("What? No way!!!"));
+		System.out.println(preProcess("What!!! No Way"));
 		
 		// Tests the randomAnagram function.
 		System.out.println("silent and " + randomAnagram("silent") + " are anagrams.");
@@ -30,31 +30,24 @@ public class Anagram {
 	public static boolean isAnagram(String str1, String str2) {
 		String str1a = preProcess(str1);
 		String str2a = preProcess(str2);
+		int new_index;
 		
 		for (int i = 0; i < str1a.length(); i++){
+
 			while (str2a.length() > 0){
-				if (letterCount(str1a, str1a.charAt(i)) != letterCount(str2a, str1a.charAt(i))){
+
+				new_index = str2a.indexOf(str1a.charAt(i));
+
+				if (new_index == -1){
 					return false;
 				}
-				str2a = str2a.substring(0, i) + str2a.substring(i + 1);
+				else {
+					str2a = str2a.substring(0, new_index) + str2a.substring(new_index + 1);
+					break;
+				}
 			}
 		}
 		return true;
-	}
-
-	public static int letterCount(String str, char character){
-		int count = 0;
-		char current = ' ';
-		if (current == ' '){
-			return 0;
-		}
-		for (int i = 0; i < str.length() - 1; i++){
-			current = str.charAt(i);
-			if (current == character){
-				count ++;
-			}
-		}
-		return count;
 	}
 	   
 	// Returns a preprocessed version of the given string: all the letter characters are converted
@@ -64,7 +57,7 @@ public class Anagram {
 		str = str.toLowerCase();
 		String lower_case = "";
 
-		for (int i = 0; i < str.length() - 1; i++)
+		for (int i = 0; i < str.length(); i++)
 		{
 			char current = str.charAt(i);
 			boolean assign = false;
