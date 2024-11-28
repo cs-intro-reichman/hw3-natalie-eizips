@@ -31,9 +31,12 @@ public class Anagram {
 		String str1a = preProcess(str1);
 		String str2a = preProcess(str2);
 		
-		for (int i = 0; i < str1a.length() - 1; i++){
-			if (letterCount(str1a, str1a.charAt(i)) != letterCount(str2a, str1a.charAt(i))){
-				return false;
+		for (int i = 0; i < str1a.length(); i++){
+			while (str2a.length() > 0){
+				if (letterCount(str1a, str1a.charAt(i)) != letterCount(str2a, str1a.charAt(i))){
+					return false;
+				}
+				str2a = str2a.substring(0, i) + str2a.substring(i + 1);
 			}
 		}
 		return true;
