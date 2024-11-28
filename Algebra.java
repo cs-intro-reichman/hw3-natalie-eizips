@@ -139,6 +139,9 @@ public class Algebra {
 	// Returns the integer part of sqrt(x) 
 	public static int sqrt(int x) {
 		int g = 1;
+		if (x == 0){
+			return 0;
+		}
 
 		while(times(g,g) < x) {
 			if (times(g+1, g+1) > x) {
