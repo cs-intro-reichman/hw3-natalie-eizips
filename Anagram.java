@@ -63,11 +63,19 @@ public class Anagram {
 	public static String preProcess(String str) {
 		str = str.toLowerCase();
 		String lower_case = "";
+
 		for (int i = 0; i < str.length() - 1; i++)
 		{
 			char current = str.charAt(i);
+			boolean assign = false;
 
-			if (!(current >= 33 && current <= 64)){
+			for (int j = 33; j <= 64; j ++) {
+				if (current == j){
+					assign = true;
+				}
+			}
+
+			if (assign == false){
 				lower_case = lower_case + current;
 			}
 		}
